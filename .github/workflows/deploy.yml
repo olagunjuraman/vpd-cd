@@ -27,8 +27,8 @@ jobs:
           # cat updated-deployment.yaml
         # working-directory: ${{ github.workspace }}
 
-        - name: Set up Git authentication
-          run: |
+      - name: Set up Git authentication
+         run: |
            git remote set-url origin https://x-access-token:${{ secrets.PAT}}@github.com/${{ github.repository }}
 
 
