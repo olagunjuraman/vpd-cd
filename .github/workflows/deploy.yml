@@ -28,6 +28,8 @@ jobs:
         # working-directory: ${{ github.workspace }}
 
       - name: Commit and Push Changes
+          with:
+          token: ${{ secrets.PAT }}
         run: |
           ENV_DIR="${{ github.event.client_payload.branch }}"  # Reuse the environment directory
           MANIFEST_DIR="./$ENV_DIR"
@@ -37,3 +39,5 @@ jobs:
           git add .
           git commit -m "Update image tag to $NEW_TAG in $ENV_DIR"
           git push origin HEAD
+            env:
+            GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
