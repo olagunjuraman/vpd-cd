@@ -25,7 +25,7 @@ jobs:
           kustomize edit set image your-image-repo/your-app=$NEW_TAG
           kustomize build . > updated-deployment.yaml
           cat updated-deployment.yaml
-        working-directory: ${{ github.workspace }}
+        # working-directory: ${{ github.workspace }}
 
       - name: Commit and Push Changes
         run: |
