@@ -4,39 +4,6 @@ on:
   repository_dispatch:
     types: [update-image]
 
-# jobs:
-#   update-manifests:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v2
-
-#       - name: Setup Kustomize
-#         uses: imranismail/setup-kustomize@v1
-#         with:
-#           kustomize-version: "4.4.1"  # Ensure this version matches your requirements
-
-#       - name: Update Kubernetes Deployment with new image using Kustomize
-#         run: |
-#           NEW_TAG="${{ github.event.client_payload.image_tag }}"
-#           ENV_DIR="${{ github.event.client_payload.branch }}"  # Payload includes the folder name like 'dev', 'stage', or 'prod'
-#           MANIFEST_DIR="./k8s/$ENV_DIR"
-#           cd $MANIFEST_DIR
-#           kustomize edit set image your-image-repo/your-app=$NEW_TAG
-#           kustomize build . > updated-deployment.yaml
-#           cat updated-deployment.yaml
-#         # working-directory: ${{ github.workspace }}
-
-#       - name: Commit and Push Changes
-#         run: |
-#           ENV_DIR="${{ github.event.client_payload.branch }}"  # Reuse the environment directory
-#           MANIFEST_DIR="./k8s/$ENV_DIR"
-#           cd ${{ github.workspace }}/$MANIFEST_DIR
-#           git config user.name "GitHub Action"
-#           git config user.email "action@github.com"
-#           git add updated-deployment.yaml
-#           git commit -m "Update image tag to $NEW_TAG in $ENV_DIR"
-#           git push origin HEAD
 jobs:
   update-manifests:
     runs-on: ubuntu-latest
@@ -47,27 +14,24 @@ jobs:
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
         with:
-          kustomize-version: "4.4.1"
-
-      - name: Prepare Environment Variables
-        run: |
-          echo "NEW_TAG=${{ github.event.client_payload.image_tag }}" >> $GITHUB_ENV
-          echo "ENV_DIR=${{ github.event.client_payload.branch }}" >> $GITHUB_ENV
-          echo "MANIFEST_DIR=${{ github.workspace }}/k8s/${{ github.event.client_payload.branch }}" >> $GITHUB_ENV
-
-      - name: Log MANIFEST_DIR value
-        run: echo "MANIFEST_DIR is set to $MANIFEST_DIR"
+          kustomize-version: "4.4.1"  # Ensure this version matches your requirements
 
       - name: Update Kubernetes Deployment with new image using Kustomize
         run: |
+          NEW_TAG="${{ github.event.client_payload.image_tag }}"
+          ENV_DIR="${{ github.event.client_payload.branch }}"  # Payload includes the folder name like 'dev', 'stage', or 'prod'
+          MANIFEST_DIR="./$ENV_DIR"
           cd $MANIFEST_DIR
           kustomize edit set image your-image-repo/your-app=$NEW_TAG
           kustomize build . > updated-deployment.yaml
           cat updated-deployment.yaml
+        # working-directory: ${{ github.workspace }}
 
       - name: Commit and Push Changes
         run: |
-          cd $MANIFEST_DIR
+          ENV_DIR="${{ github.event.client_payload.branch }}"  # Reuse the environment directory
+          MANIFEST_DIR="./$ENV_DIR"
+          cd ${{ github.workspace }}/$MANIFEST_DIR
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add updated-deployment.yaml
