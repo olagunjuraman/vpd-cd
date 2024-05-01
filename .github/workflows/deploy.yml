@@ -28,7 +28,7 @@ jobs:
         # working-directory: ${{ github.workspace }}
 
       - name: Set up Git authentication
-         run: |
+        run: |
            git remote set-url origin https://x-access-token:${{ secrets.PAT}}@github.com/${{ github.repository }}
 
 
