@@ -34,5 +34,6 @@ jobs:
           cd ${{ github.workspace }}/$MANIFEST_DIR
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+          git add .
           git commit -m "Update image tag to $NEW_TAG in $ENV_DIR"
           git push origin HEAD
