@@ -34,8 +34,10 @@ jobs:
           cd ${{ github.workspace }}/$MANIFEST_DIR
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }} | base64)"
           git add .
           git commit -m "Update image tag to $NEW_TAG in $ENV_DIR"
           git push origin HEAD
         env:
-         GITHUB_TOKEN: ${{ secrets.PAT }}
+          NEW_TAG: ${{ github.event.client_payload.image_tag }}
+          GITHUB_TOKEN: ${{ secrets.PAT}}
