@@ -38,4 +38,4 @@ jobs:
           git commit -m "Update image tag to $NEW_TAG in $ENV_DIR"
           git push origin HEAD
         env:
-         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.PAT }}
