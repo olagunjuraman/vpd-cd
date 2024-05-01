@@ -19,12 +19,12 @@ jobs:
       - name: Update Kubernetes Deployment with new image using Kustomize
         run: |
           NEW_TAG="${{ github.event.client_payload.image_tag }}"
-          ENV_DIR="${{ github.event.client_payload.branch }}"  # Payload includes the folder name like 'dev', 'stage', or 'prod'
+          ENV_DIR="${{ github.event.client_payload.branch }}"  
           MANIFEST_DIR="./$ENV_DIR"
           cd $MANIFEST_DIR
-          kustomize edit set image your-image-repo/your-app=$NEW_TAG
-          kustomize build . > updated-deployment.yaml
-          cat updated-deployment.yaml
+          kustomize edit set image  271365062139.dkr.ecr.us-east-1.amazonaws.com/vpd-api=$NEW_TAG
+          # kustomize build . > updated-deployment.yaml
+          # cat updated-deployment.yaml
         # working-directory: ${{ github.workspace }}
 
       - name: Commit and Push Changes

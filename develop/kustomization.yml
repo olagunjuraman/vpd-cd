@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: vpd
+resources:
+- deployment.yaml
+- service.yaml
+- configmap.yaml
+- ingress.yaml
+images:
+- name: xpad-apiV2
+  newName: 271365062139.dkr.ecr.us-east-1.amazonaws.com/vpd-api
+  newTag: 3803e5b2c185f495f8e12f4d40a601abe59d4e89-api-v2
