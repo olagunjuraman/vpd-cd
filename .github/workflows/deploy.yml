@@ -27,6 +27,11 @@ jobs:
           # cat updated-deployment.yaml
         # working-directory: ${{ github.workspace }}
 
+        - name: Set up Git authentication
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.PAT}}@github.com/${{ github.repository }}
+
+
       - name: Commit and Push Changes
         run: |
           ENV_DIR="${{ github.event.client_payload.branch }}"  # Reuse the environment directory
@@ -34,7 +39,7 @@ jobs:
           cd ${{ github.workspace }}/$MANIFEST_DIR
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }} | base64)"
+          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.PAT }} | base64)"
           git add .
           git commit -m "Update image tag to $NEW_TAG in $ENV_DIR"
           git push origin HEAD
