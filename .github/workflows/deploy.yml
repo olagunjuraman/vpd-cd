@@ -28,8 +28,6 @@ jobs:
         # working-directory: ${{ github.workspace }}
 
       - name: Commit and Push Changes
-          with:
-          token: ${{ secrets.PAT }}
         run: |
           ENV_DIR="${{ github.event.client_payload.branch }}"  # Reuse the environment directory
           MANIFEST_DIR="./$ENV_DIR"
