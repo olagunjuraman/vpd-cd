@@ -7,6 +7,6 @@ resources:
 - configmap.yml
 - ingress.yml
 images:
-- name: xpad-apiV2
+- name: seyi-api
   newName: 271365062139.dkr.ecr.us-east-1.amazonaws.com/vpd-api
   newTag: 3803e5b2c185f495f8e12f4d40a601abe59d4e89-api-v2
