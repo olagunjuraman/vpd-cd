@@ -4,7 +4,6 @@ namespace: vpd
 resources:
 - deployment.yml
 - service.yml
-- configmap.yml
 - ingress.yml
 images:
 - name: seyi-api
