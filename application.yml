@@ -9,9 +9,11 @@ spec:
     repoURL: https://github.com/olagunjuraman/vpd-cd
     targetRevision: HEAD
     path: develop
+    kustomize:
+       namePrefix: dev-
   destination: 
     server: https://kubernetes.default.svc
-    namespace: myapp
+    namespace: vpd-dev
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

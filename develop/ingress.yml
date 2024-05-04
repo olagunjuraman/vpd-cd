@@ -13,7 +13,7 @@ metadata:
 
 spec:
   rules:
-    - host: dev-apiv2.vpd.com
+    - host: "*.example.com"
       http:
         paths:
           - path: /
