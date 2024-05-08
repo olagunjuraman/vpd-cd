@@ -11,7 +11,7 @@ metadata:
 
 spec:
   rules:
-      - host: dev-api.vpd.life
+    - host: dev-api.vpd.life
       http:
         paths:
           - path: /
